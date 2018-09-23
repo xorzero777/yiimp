@@ -126,6 +126,8 @@ char *rpc_do_call(YAAMP_RPC *rpc, char const *data)
 	rpc_send(rpc, "Host: %s:%d\n", rpc->host, rpc->port);
 	rpc_send(rpc, "Accept: */*\r\n");
 	rpc_send(rpc, "Content-Type: application/json\r\n");
+//	rpc_send(rpc, "Content-Type: text/plain\r\n");
+//	printf("data len %d\n", strlen(data));
 	rpc_send(rpc, "Content-Length: %d\r\n\r\n", strlen(data));
 
 	int res = rpc_flush(rpc);

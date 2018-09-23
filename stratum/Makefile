@@ -1,7 +1,8 @@
 
 CC=gcc
 
-CFLAGS= -g -march=native
+###CFLAGS= -g -march=native
+CFLAGS= -g -O0 -DDEBUG
 SQLFLAGS= `mysql_config --cflags --libs`
 
 # Comment this line to disable address check on login,
@@ -9,7 +10,8 @@ SQLFLAGS= `mysql_config --cflags --libs`
 CFLAGS += -DNO_EXCHANGE
 
 #CFLAGS=-c -O2 -I /usr/include/mysql
-LDFLAGS=-O2 `mysql_config --libs`
+###LDFLAGS=-O2 `mysql_config --libs`
+LDFLAGS=-O0 `mysql_config --libs`
 
 LDLIBS=iniparser/libiniparser.a algos/libalgos.a sha3/libhash.a -lpthread -lgmp -lm -lstdc++
 LDLIBS+=-lmysqlclient
@@ -17,7 +19,8 @@ LDLIBS+=-lmysqlclient
 SOURCES=stratum.cpp db.cpp coind.cpp coind_aux.cpp coind_template.cpp coind_submit.cpp util.cpp list.cpp \
 	rpc.cpp job.cpp job_send.cpp job_core.cpp merkle.cpp share.cpp socket.cpp coinbase.cpp \
 	client.cpp client_submit.cpp client_core.cpp client_difficulty.cpp remote.cpp remote_template.cpp \
-	user.cpp object.cpp json.cpp base58.cpp
+	user.cpp object.cpp json.cpp base58.cpp \
+	zcc.cpp
 
 CFLAGS += -DHAVE_CURL
 SOURCES += rpc_curl.cpp

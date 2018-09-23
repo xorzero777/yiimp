@@ -93,6 +93,10 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 	char eversion1[32] = "01000000";
 	if(coind->txmessage)
 		strcpy(eversion1, "02000000");
+	//TODO: revisit ZCC is Tx v1 - Now txmessage 0 in yaamp:coins db
+	//if (strcmp(coind->symbol, "ZCC") == 0)
+	//	strcpy(eversion1, "01000000");
+	//<-ZCC
 
 	char script1[4*1024];
 	sprintf(script1, "%s%s%s08", eheight, templ->flags, etime);
@@ -218,6 +222,62 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 		coind->reward = (double)available/100000000*coind->reward_mul;
 		return;
 	}
+
+	//TODO: revisit ZCC coinbase->
+	else if(strcmp(coind->symbol, "ZCC") == 0) {
+		char script_payee[1024];
+		json_int_t COIN = 100000000;
+		//if (coind->charity_percent <= 0)
+		//	coind->charity_percent = 25; // "wrong" coinbase 40 instead of 40 + 10 = 50
+
+		//not valid after the first halving
+		if (templ->height > 210000) {
+			debuglog("Error: ZCC after first halving -- update the code!\n");
+			return;
+		}
+
+		//json_int_t charity_amount = (available * coind->charity_percent) / 100;
+		//if (strlen(coind->charity_address) == 0)
+		//	sprintf(coind->charity_address, "aHu897ivzmeFuLNB6956X6gyGeVNHUBRgD");
+
+		// 9 ZCC coinbase tx outputs
+		strcat(templ->coinb2, "09");
+		//Miner master_wallet
+		job_pack_tx(coind, templ->coinb2, available, NULL);
+		//Founders
+		base58_decode("c5TCxXYaQbdpKP2ajtrn82iMdaC7GRtFqG", script_payee);
+		job_pack_tx(coind, templ->coinb2, 1 * COIN, script_payee);
+		base58_decode("c6uDG5gaLVkjKckgi6zjzTq9EyQSXU1xut", script_payee);
+		job_pack_tx(coind, templ->coinb2, 1 * COIN, script_payee);
+		base58_decode("cE788v1ZQwE9LLS8akeRQvxxHz7jyZ5mTj", script_payee);
+		job_pack_tx(coind, templ->coinb2, 1 * COIN, script_payee);
+		base58_decode("cGgXzCxnUTts9qRAxRAKqRbNLSJWSStmZQ", script_payee);
+		job_pack_tx(coind, templ->coinb2, 1 * COIN, script_payee);
+		base58_decode("c6UqJ5GhGovzFEooaQMtFpH9K3EeVP5phi", script_payee);
+		job_pack_tx(coind, templ->coinb2, 1 * COIN, script_payee);
+		base58_decode("c5dng8dFr6Xg685P3AhTvSngGfomRVXwen", script_payee);
+		job_pack_tx(coind, templ->coinb2, 1 * COIN, script_payee);
+		base58_decode("cPGkkExJFnQue1vV2Mi5y9aazVS2KVvmz4", script_payee);
+		job_pack_tx(coind, templ->coinb2, 1 * COIN, script_payee);
+		//Treasury
+		base58_decode("cMW9MEMpDEFrcSqHy1pJfmu3bgEXrYa3ZE", script_payee);
+		job_pack_tx(coind, templ->coinb2, 3 * COIN, script_payee);
+
+		strcat(templ->coinb2, "00000000"); // locktime
+
+		printf("%s [] %s\n", templ->coinb1, templ->coinb2);
+
+		coind->reward = (double)available/100000000*coind->reward_mul;
+		debuglog("coinbase %f\n", coind->reward);
+
+		debuglog("coinbase %s: version %s, nbits %s, time %s\n", coind->symbol, templ->version, templ->nbits, templ->ntime);
+		debuglog("coinb1 %s\n", templ->coinb1);
+		debuglog("coinb2 %s\n", templ->coinb2);
+
+		return;
+	}
+	//<-ZCC coinbase
+
 	else if(strcmp("DCR", coind->rpcencoding) == 0) {
 		coind->reward_mul = 6;  // coinbase value is wrong, reward_mul should be 6
 		coind->charity_percent = 0;
@@ -607,7 +667,7 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 
 	coind->reward = (double)available/100000000*coind->reward_mul;
 //	debuglog("coinbase %f\n", coind->reward);
-
+//
 //	debuglog("coinbase %s: version %s, nbits %s, time %s\n", coind->symbol, templ->version, templ->nbits, templ->ntime);
 //	debuglog("coinb1 %s\n", templ->coinb1);
 //	debuglog("coinb2 %s\n", templ->coinb2);

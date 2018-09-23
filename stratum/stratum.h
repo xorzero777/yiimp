@@ -31,6 +31,13 @@ using namespace std;
 #include "json.h"
 #include "util.h"
 
+//////////////////////TODO: revisit HAVE_CURL indexer?
+#ifndef HAVE_CURL
+# define HAVE_CURL
+#endif
+//////////////////////
+
+
 #define YAAMP_RESTARTDELAY		(24*60*60)
 #define YAAMP_MAXJOBDELAY		(2*60)
 #define CURL_RPC_TIMEOUT		(30)

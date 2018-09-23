@@ -3,7 +3,7 @@
 
 uint64_t lyra2z_height = 0;
 
-//#define MERKLE_DEBUGLOG
+#define MERKLE_DEBUGLOG
 //#define DONTSUBMIT
 
 void build_submit_values(YAAMP_JOB_VALUES *submitvalues, YAAMP_JOB_TEMPLATE *templ,
@@ -11,6 +11,8 @@ void build_submit_values(YAAMP_JOB_VALUES *submitvalues, YAAMP_JOB_TEMPLATE *tem
 {
 	sprintf(submitvalues->coinbase, "%s%s%s%s", templ->coinb1, nonce1, nonce2, templ->coinb2);
 	int coinbase_len = strlen(submitvalues->coinbase);
+
+	printf("coinbase_len = %i\ncoinbase = %s\n", coinbase_len, submitvalues->coinbase);
 
 	unsigned char coinbase_bin[1024];
 	memset(coinbase_bin, 0, 1024);

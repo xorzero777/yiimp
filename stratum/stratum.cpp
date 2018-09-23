@@ -385,12 +385,13 @@ void *monitor_thread(void *p)
 	{
 		sleep(120);
 
-		if(g_last_broadcasted + YAAMP_MAXJOBDELAY < time(NULL))
-		{
-			g_exiting = true;
-			stratumlogdate("%s dead lock, exiting...\n", g_stratum_algo);
-			exit(1);
-		}
+//TODO: revisit YAAMP_MAXJOBDELAY timeout
+//		if(g_last_broadcasted + YAAMP_MAXJOBDELAY < time(NULL))
+//		{
+//			g_exiting = true;
+//			stratumlogdate("%s dead lock, exiting...\n", g_stratum_algo);
+//			exit(1);
+//		}
 
 		if(g_max_shares && g_shares_counter) {
 
