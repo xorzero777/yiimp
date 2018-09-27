@@ -258,7 +258,7 @@ void job_signal()
 
 void job_update()
 {
-//	debuglog("job_update()\n");
+	debuglog("job_update()\n");
 	job_reset_clients();
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -321,10 +321,10 @@ void job_update()
 
 	////////////////////////////////////////////////////////////////////////////////////////////////
 
-//	usleep(100*YAAMP_MS);
+	usleep(100*YAAMP_MS);
 
-//	int ready = 0;
-//	debuglog("job_update\n");
+	int ready = 0;
+	debuglog("job_update\n");
 
 	g_list_job.Enter();
 	for(CLI li = g_list_job.first; li; li = li->next)
@@ -333,10 +333,10 @@ void job_update()
 		if(!job_can_mine(job)) continue;
 
 		job_broadcast(job);
-//		ready++;
+		ready++;
 	}
 
-//	debuglog("job_update %d / %d jobs\n", ready, g_list_job.count);
+	debuglog("job_update %d / %d jobs\n", ready, g_list_job.count);
 	g_list_job.Leave();
 
 }

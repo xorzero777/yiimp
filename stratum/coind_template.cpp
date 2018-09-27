@@ -593,7 +593,7 @@ bool coind_create_job(YAAMP_COIND *coind, bool force)
 	g_list_job.AddTail(coind->job);
 	CommonUnlock(&coind->mutex);
 
-//	debuglog("coind_create_job %s %d new job %x\n", coind->name, coind->height, coind->job->id);
+	debuglog("coind_create_job %s %d new job %x\n", coind->name, coind->height, coind->job->id);
 
 	return true;
 }

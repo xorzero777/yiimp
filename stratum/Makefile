@@ -2,6 +2,7 @@
 CC=gcc
 
 CFLAGS= -g -march=native
+###CFLAGS= -g -O0 -DDEBUG
 SQLFLAGS= `mysql_config --cflags --libs`
 
 # Comment this line to disable address check on login,
@@ -10,6 +11,7 @@ CFLAGS += -DNO_EXCHANGE
 
 #CFLAGS=-c -O2 -I /usr/include/mysql
 LDFLAGS=-O2 `mysql_config --libs`
+###LDFLAGS=-O0 `mysql_config --libs`
 
 LDLIBS=iniparser/libiniparser.a algos/libalgos.a sha3/libhash.a -lpthread -lgmp -lm -lstdc++
 LDLIBS+=-lmysqlclient

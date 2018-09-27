@@ -9,5 +9,5 @@ while [ -e config/${1}.conf ]; do
         ./stratum config/$1
 	sleep 1
 done
-exec bash
+#exec bash
 

@@ -230,7 +230,7 @@ bool client_authorize(YAAMP_CLIENT *client, json_value *json_params)
 	}
 
 	if (!is_base58(client->username)) {
-		clientlog(client, "bad mining address %s", client->username);
+		clientlog(client, "bad mining (non-base58 chars) address %s", client->username);
 		return false;
 	}
 
