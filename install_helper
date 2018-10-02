@@ -1,0 +1,51 @@
+
+#
+# https://pastebin.com/raw/uEmzaDKR
+#
+
+•	sudo adduser pool
+•	sudo adduser pool sudo
+•	su – pool
+•	sudo apt-get install git
+•	sudo apt-get install nano
+•	sudo git clone https://github.com/xavatar/yiimp_install_scrypt.git
+•	cd yiimp_install_scrypt/
+•	sudo bash install.sh
+•	su –
+•	sudo git clone https://github.com/xavatar/yiimp_install_scrypt.git
+•	cd yiimp_install_scrypt/
+•	sudo bash  screen-scrypt.sh
+•	cd ..
+•	screen –ls
+•	screen –r main
+•	to exit use ctrl+a+d
+•	screen –r loop2
+•	screen –r blocks
+•	su – pool
+•	sudo mkdir compil
+•	sudo mkdir daemon
+•	cd compil
+•	sudo wget https://github.com/RedenCore/Reden/releases/download/1.0.2/reden-1.0.2-ubuntu16.tar.gz
+•	sudo tar -xzvf reden-1.0.2-ubuntu16.tar.gz 
+•	cd reden-1.0.2-ubuntu16/reden/
+•	sudo mkdir /home/pool/daemon/reden
+•	sudo cp redend /home/pool/daemon/reden
+•	sudo cp reden-cli /home/pool/daemon/reden
+•	sudo cp reden-tx /home/pool/daemon/reden
+•	cd /home/pool/daemon/reden
+•	sudo strip redend
+•	sudo ./redend
+•	cd daemon/reden
+•	sudo ./reden-cli stop
+•	cd .redencore
+•	sudo nano reden.conf
+•	ctrl+x y enter
+•	cd ..
+•	cd daemo/reden 
+•	sudo ./redend
+•	su – 
+•	ufw allow 3663/tcp
+•	screen -S reden
+•	cd /var/stratum
+•	sudo bash run.sh x16s
+
